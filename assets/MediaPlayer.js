@@ -1,18 +1,15 @@
-export default function MediaPlayer(config) {
-    this.media = config.el
-    this.plugins = config.plugins || []
+export default class MediaPlayer {
+    constructor(config) {
+        this.media = config.el
+        this.plugins = config.plugins || []
+        this._initPlugins()
+    }
 
-    this._initPlugins = () => {
+    _initPlugins() {
         const player = {
-            play: () => this.play(),
-            pause: () => this.pause(),
+            togglePlay: () => this.togglePlay(),
+            toggleMute: () => this.toggleMute(),
             media: this.media,
-            get muted() {
-                return this.media.muted
-            },
-            set muted(value) {
-                this.media.muted = value
-            }
         }
 
         this.plugins.forEach(plugin => {
@@ -20,29 +17,7 @@ export default function MediaPlayer(config) {
         })
     }
 
-    this.play = () => {
-        this.media.play()
-    }
+    togglePlay() { this.media.paused ? this.media.play() : this.media.pause() }
 
-    this.pause = () => {
-        this.media.pause()
-    }
-
-    this.toggleReproduce = () => {
-        this.media.paused ? this.play() : this.pause()
-    }
-
-    this.mute = () => {
-        this.media.muted = true
-    }
-
-    this.unmute = () => {
-        this.media.muted = false
-    }
-
-    this.toggleMute = () => {
-        this.media.muted ? this.unmute() : this.mute()
-    }
-
-    this._initPlugins()
+    toggleMute() { this.media.muted = !this.media.muted }
 }
