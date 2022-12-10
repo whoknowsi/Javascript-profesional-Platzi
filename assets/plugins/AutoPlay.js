@@ -1,6 +1,6 @@
 export default function AutoPlay() {
     this.run = (player) => {
-        player.mute()
+        !player.muted && (player.muted = true)
         player.play()
     }
 }
