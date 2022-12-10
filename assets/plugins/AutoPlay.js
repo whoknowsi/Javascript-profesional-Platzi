@@ -1,7 +1,7 @@
 class AutoPlay {
     run = (player) => {
         player.toggleMute()
-        player.togglePlay()
+        player.play()
     }
 }
 

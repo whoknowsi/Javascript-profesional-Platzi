@@ -7,7 +7,8 @@ export default class MediaPlayer {
 
     _initPlugins() {
         const player = {
-            togglePlay: () => this.togglePlay(),
+            play: () => this.play(),
+            pause: () => this.pause(),
             toggleMute: () => this.toggleMute(),
             media: this.media,
         }
@@ -16,6 +17,9 @@ export default class MediaPlayer {
             plugin.run(player)
         })
     }
+
+    play() { this.media.play() }
+    pause() { this.media.pause() }
 
     togglePlay() { this.media.paused ? this.media.play() : this.media.pause() }
 
