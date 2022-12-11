@@ -1,5 +1,5 @@
-import MediaPlayer from "./MediaPlayer.js"
-import AutoPlay from "./plugins/AutoPlay.js"
+import MediaPlayer from "./MediaPlayer.ts"
+import AutoPlay from "./plugins/AutoPlay.ts"
 import AutoPause from "./plugins/AutoPause.ts"
 
 const video = document.querySelector('.movie')
