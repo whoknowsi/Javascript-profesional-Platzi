@@ -1,8 +1,9 @@
 const CACHE_VERSION = 'v1'
 
-self.addEventListener('install', event => {
-    event.waitUntil(precache())
-})
+// Disable precache because it is not working with parcel builder in this way
+// self.addEventListener('install', event => {
+//     event.waitUntil(precache())
+// })
 
 self.addEventListener('fetch', event => {
     const { request } = event
@@ -36,15 +37,19 @@ async function cachedResponse(request) {
 async function updateCache(request) {
     const cache = await caches.open(CACHE_VERSION)
     const response = await fetch(request)
+
+    // I need to check if the response is a partial content
+    // because if it is, it is not cacheable
     if (response.status === 206 && !response.headers.get('content-encoding')) {
-        const contentLength = parseInt(response.headers.get('content-length'));
+        const contentLength = parseInt(response.headers.get('content-length'))
         if (
-            `bytes 0-${contentLength - 1}/${contentLength}` ===
+            `bytes 0-$  {contentLength - 1}/${contentLength}` ===
             response.headers.get('content-range')
         ) {
             // Convert response from 206 -> 200 to make it cacheable
-            return new Response(response.body, { status: 200, headers: response.headers });
+            return new Response(response.body, { status: 200, headers: response.headers })
         }
     }
+
     return cache.put(request, response)
 }
