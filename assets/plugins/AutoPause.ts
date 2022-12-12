@@ -1,9 +1,4 @@
-import MediaPlayer from "../MediaPlayer"
-
-interface Plugin {
-    player: MediaPlayer
-    run: (player: MediaPlayer) => void
-}
+import MediaPlayer, { Plugin } from '../MediaPlayer'
 
 class AutoPause implements Plugin {
     player: MediaPlayer
